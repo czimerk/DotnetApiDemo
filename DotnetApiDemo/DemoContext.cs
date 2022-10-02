@@ -1,4 +1,5 @@
-﻿using GraphQLDemo.Domain;
+﻿using DotnetApiDemo.Domain;
+using GraphQLDemo.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace GraphQLDemo
@@ -73,6 +74,7 @@ namespace GraphQLDemo
 
             Users.AddRange(new User()
             {
+                Email = "john.doe@gmail.com",
                 Id = new Guid(U1),
                 FirstName = "John",
                 LastName = "Doe",
@@ -82,6 +84,7 @@ namespace GraphQLDemo
             },
             new User()
             {
+                Email = "jane.doe@gmail.com",
                 Id = new Guid(U2),
                 FirstName = "Jane",
                 LastName = "Doe",
@@ -91,6 +94,7 @@ namespace GraphQLDemo
             },
             new User()
             {
+                Email = "admin.allen@gmail.com",
                 Id = new Guid(U3),
                 FirstName = "Admin",
                 LastName = "Allen",
