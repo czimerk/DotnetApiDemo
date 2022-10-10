@@ -10,7 +10,8 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var optionsBuilder = new DbContextOptionsBuilder<DemoContext>().UseInMemoryDatabase("test");
+var optionsBuilder = new DbContextOptionsBuilder<DemoContext>()
+    .UseInMemoryDatabase("test");
 var _options = optionsBuilder.Options;
 builder.Services.AddSingleton<DbContextOptions<DemoContext>>(_options);
 builder.Services.AddSingleton<DemoContext>(new DemoContext(_options));
@@ -55,6 +56,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
 var app = builder.Build();
+var ctx = app.Services.GetService<DemoContext>();
+ctx.Seed();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -62,9 +65,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-var ctx = app.Services.GetService<DemoContext>();
-ctx.Seed();
 
 //app.Use(async (context, next) =>
 //{

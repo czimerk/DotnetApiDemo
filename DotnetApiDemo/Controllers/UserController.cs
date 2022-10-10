@@ -42,7 +42,7 @@ namespace GraphQLDemo.Controllers
         {
             using (var ctx = new DemoContext(_options))
             {
-                var users = ctx.Users.ToList();
+                var users = await ctx.Users.ToListAsync();
                 if (users.Any(u => u.Email == user.Username && u.Password == user.Password))
                 {
                     var authClaims = new List<Claim>
