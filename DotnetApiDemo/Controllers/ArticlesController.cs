@@ -51,7 +51,7 @@ namespace GraphQLDemo.Controllers
 
         [HttpPut]
         [Route("{id}")]
-        public async Task<ActionResult<ArticleDto>> UpdateArticle(Guid id, [FromBody] ArticleDto articleDto)
+        public async Task<ActionResult<ArticleDto>> UpdateArticle(Guid id, ArticleDto articleDto)
         {
             if (id == Guid.Empty || articleDto.Id == Guid.Empty)
                 return BadRequest($"Invalid {nameof(articleDto.Id)}");
@@ -72,7 +72,7 @@ namespace GraphQLDemo.Controllers
         }
 
         [HttpPost]
-        public async Task<ArticleDto> AddArticle([FromBody] ArticleDto articleDto)
+        public async Task<ArticleDto> AddArticle(ArticleDto articleDto) // nem kell [FromBody] mert complex típus
         {
             using (var ctx = new DemoContext(_options))
             {
