@@ -17,7 +17,7 @@ var _options = optionsBuilder.Options;
 builder.Services.AddSingleton<DbContextOptions<DemoContext>>(_options);
 builder.Services.AddSingleton<DemoContext>(new DemoContext(_options));
 
-builder.Services.AddScoped<ArticleService>();
+builder.Services.AddScoped<IArticleService, ArticleService>();
 
 //JWT Authentication
 

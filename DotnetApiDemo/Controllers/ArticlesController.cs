@@ -15,10 +15,10 @@ namespace GraphQLDemo.Controllers
 
         private readonly ILogger<ArticlesController> _logger;
         private readonly IMapper _mapper;
-        private readonly ArticleService _articleService;
+        private readonly IArticleService _articleService;
         private readonly DbContextOptions<DemoContext> _options;
 
-        public ArticlesController(ILogger<ArticlesController> logger, DbContextOptions<DemoContext> options, IMapper mapper, ArticleService articleService)
+        public ArticlesController(ILogger<ArticlesController> logger, DbContextOptions<DemoContext> options, IMapper mapper, IArticleService articleService)
         {
             _logger = logger;
             _options = options;

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DotnetApiDemo.Services
 {
-    public class ArticleService
+    public class ArticleService : IArticleService
     {
         private readonly DbContextOptions<DemoContext> _options;
         private readonly IMapper _mapper;
