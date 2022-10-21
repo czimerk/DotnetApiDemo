@@ -1,4 +1,4 @@
-﻿namespace GraphQLDemo.Domain
+﻿namespace DotnetApiDemo.Domain
 {
     public class Article
     {

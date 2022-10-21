@@ -1,4 +1,6 @@
-﻿namespace GraphQLDemo.Domain
+﻿using DotnetApiDemo.Domain;
+
+namespace GraphQLDemo.Domain
 {
     public class OrderLine
     {

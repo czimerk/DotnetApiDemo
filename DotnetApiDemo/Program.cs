@@ -1,5 +1,6 @@
+using DotnetApiDemo;
 using DotnetApiDemo.Middleware;
-using GraphQLDemo;
+using DotnetApiDemo.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
@@ -15,6 +16,8 @@ var optionsBuilder = new DbContextOptionsBuilder<DemoContext>()
 var _options = optionsBuilder.Options;
 builder.Services.AddSingleton<DbContextOptions<DemoContext>>(_options);
 builder.Services.AddSingleton<DemoContext>(new DemoContext(_options));
+
+builder.Services.AddScoped<ArticleService>();
 
 //JWT Authentication
 
@@ -66,17 +69,17 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//app.Use(async (context, next) =>
-//{
-//    if (context.Request.Path.Value.Contains("ping"))
-//    {
-//        await context.Response.WriteAsync("pong");
-//    }
-//    else
-//    {
-//        await next(context);
-//    }
-//});
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.Value.Contains("ping"))
+    {
+        await context.Response.WriteAsync("pong");
+    }
+    else
+    {
+        await next(context);
+    }
+});
 
 app.UseMiddleware<CustomMiddleware>();
 app.UseMiddleware<ErrorHandlerMiddleware>();

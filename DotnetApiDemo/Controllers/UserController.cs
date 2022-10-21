@@ -1,4 +1,6 @@
-﻿using DotnetApiDemo.Domain;
+﻿using AutoMapper;
+using DotnetApiDemo;
+using DotnetApiDemo.Domain;
 using DotnetApiDemo.Dto;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -18,12 +20,14 @@ namespace GraphQLDemo.Controllers
         private readonly IConfiguration _configuration;
         private readonly ILogger<ArticlesController> _logger;
         private readonly DbContextOptions<DemoContext> _options;
+        private readonly IMapper _mapper;
 
-        public UsersController(ILogger<ArticlesController> logger, DbContextOptions<DemoContext> options, IConfiguration configuration)
+        public UsersController(ILogger<ArticlesController> logger, DbContextOptions<DemoContext> options, IConfiguration configuration, IMapper mapper)
         {
             _logger = logger;
             _options = options;
             _configuration = configuration;
+            _mapper = mapper;
         }
 
         [HttpGet(Name = "GetUsers")]
@@ -33,6 +37,26 @@ namespace GraphQLDemo.Controllers
             {
                 return ctx.Users.ToList();
             }
+        }
+
+        [HttpGet("me")]
+        public UserDto GetMe()
+        {
+            var me = User.Identity;
+            var name = me.Name;
+            //var user = User.Identity as ClaimsIdentity;
+            //var email = user.Claims
+            //    .FirstOrDefault(c => c.Type == ClaimTypes.Name 
+            //    && c.Value.Contains("@"))?.Value;
+            User dbUser = null;
+            using (var ctx = new DemoContext(_options))
+            {
+                dbUser = ctx.Users
+                    .FirstOrDefault(x => x.Email == name);
+
+
+            }
+            return dbUser == null ? null : _mapper.Map<UserDto>(dbUser);
         }
 
         [AllowAnonymous]

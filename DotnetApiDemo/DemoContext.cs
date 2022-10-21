@@ -2,7 +2,7 @@
 using GraphQLDemo.Domain;
 using Microsoft.EntityFrameworkCore;
 
-namespace GraphQLDemo
+namespace DotnetApiDemo
 {
     public class DemoContext : DbContext
     {
@@ -37,7 +37,7 @@ namespace GraphQLDemo
                 Name = "Article 1",
                 Price = 1.1,
                 Unit = "$",
-                Created = new DateTime(2019,01,01)
+                Created = new DateTime(2019, 01, 01)
             },
             new Article()
             {

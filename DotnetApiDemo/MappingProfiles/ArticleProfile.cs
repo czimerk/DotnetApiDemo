@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using DotnetApiDemo.Domain;
 using DotnetApiDemo.Dto;
-using GraphQLDemo.Domain;
 
 namespace DotnetApiDemo.MappingProfiles
 {

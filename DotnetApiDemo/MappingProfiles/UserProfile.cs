@@ -21,7 +21,7 @@ namespace DotnetApiDemo.MappingProfiles
 
         }
 
-        private static string GetNamePart(UserDto dest, int index)
+        private static string GetNamePart(Dto.UserDto dest, int index)
         {
             return dest.Name.Split(" ")[index];
         }
