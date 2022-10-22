@@ -14,8 +14,10 @@ var builder = WebApplication.CreateBuilder(args);
 var optionsBuilder = new DbContextOptionsBuilder<DemoContext>()
     .UseInMemoryDatabase("test");
 var _options = optionsBuilder.Options;
-builder.Services.AddSingleton<DbContextOptions<DemoContext>>(_options);
-builder.Services.AddSingleton<DemoContext>(new DemoContext(_options));
+builder.Services
+    .AddSingleton<DbContextOptions<DemoContext>>(_options);
+builder.Services
+    .AddSingleton<DemoContext>(new DemoContext(_options));
 
 builder.Services.AddScoped<IArticleService, ArticleService>();
 
@@ -88,6 +90,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UsePathBase(new PathString("/api"));
+app.UseRouting();
 
 app.MapControllers();
 app.Run();

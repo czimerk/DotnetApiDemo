@@ -22,7 +22,10 @@ namespace GraphQLDemo.Controllers
         private readonly DbContextOptions<DemoContext> _options;
         private readonly IMapper _mapper;
 
-        public UsersController(ILogger<ArticlesController> logger, DbContextOptions<DemoContext> options, IConfiguration configuration, IMapper mapper)
+        public UsersController(ILogger<ArticlesController> logger, 
+            DbContextOptions<DemoContext> options, 
+            IConfiguration configuration, 
+            IMapper mapper)
         {
             _logger = logger;
             _options = options;
@@ -31,11 +34,12 @@ namespace GraphQLDemo.Controllers
         }
 
         [HttpGet(Name = "GetUsers")]
-        public IEnumerable<User> Get()
+        public async Task<IEnumerable<UserDto>> Get()
         {
             using (var ctx = new DemoContext(_options))
             {
-                return ctx.Users.ToList();
+                var users = await ctx.Users.ToListAsync();
+                return users.Select(u => _mapper.Map<UserDto>(u));
             }
         }
 
